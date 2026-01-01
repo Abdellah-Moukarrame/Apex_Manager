@@ -1,3 +1,14 @@
+<?php
+
+// session_start();
+// $_SESSION["is_admin"] = true;
+// if (!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] !== true ) {
+//    header("location: ../auth/logout.php") ;
+//    exit;
+// }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -84,6 +95,9 @@
                         <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center font-bold">
                             AU
                         </div>
+                        <a href="../auth/logout.php" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors">
+                            Logout
+                        </a>
                     </div>
                 </div>
             </header>

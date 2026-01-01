@@ -1,11 +1,20 @@
+<?php
+
+// session_start();
+// $_SESSION["is_journaliste"] == true;
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apex Management - Journalist Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-zinc-950 text-slate-100 font-sans antialiased">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar - Journalist Role -->
@@ -60,11 +69,10 @@
             <header class="h-16 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between px-6">
                 <div class="flex items-center gap-4 flex-1">
                     <div class="relative flex-1 max-w-xl">
-                        <input 
-                            type="text" 
-                            placeholder="Search players, coaches, transfers..." 
-                            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 pl-10 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                        >
+                        <input
+                            type="text"
+                            placeholder="Search players, coaches, transfers..."
+                            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 pl-10 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
                         <svg class="w-5 h-5 absolute left-3 top-2.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -79,10 +87,14 @@
                     <div class="text-right">
                         <p class="text-sm font-medium text-zinc-100">Sarah Chen</p>
                         <p class="text-xs text-zinc-500">Journalist</p>
+
                     </div>
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
                         SC
                     </div>
+                    <a href="../auth/logout.php" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors">
+                        Logout
+                    </a>
                 </div>
             </header>
 
@@ -467,4 +479,5 @@
         </div>
     </div>
 </body>
+
 </html>
