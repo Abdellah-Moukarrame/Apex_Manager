@@ -37,18 +37,18 @@ class Player extends Person implements Crud
         $data_create->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo()]);
         $players_create = $data_create->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function update()
+    public function update($id_equipe)
     {
         $sql_update = "update  joueur set nom_J = :name , role_J = :role , pseudo_J =pseudo where id_J = :id ";
         $data_update = $this->db->prepare($sql_update);
-        $data_update->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo(), ":id" => $this->getId()]);
+        $data_update->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo(), ":id" => $id_equipe]);
         $players_update = $data_update->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function delete()
+    public function delete($id_equipe)
     {
         $sql_delete = "delete  from joueur where id_J :id ";
         $data_delete = $this->db->prepare($sql_delete);
-        $data_delete->execute([":id" => $this->getId()]);
+        $data_delete->execute([":id" => $id_equipe]);
         $players_update = $data_delete->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
     public function getAll()
@@ -57,5 +57,9 @@ class Player extends Person implements Crud
         $data_players = $this->db->prepare($sql_players);
         $data_players->execute();
         $players = $data_players->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    }
+    public function getById($id_equipe)
+    {
+        
     }
 }

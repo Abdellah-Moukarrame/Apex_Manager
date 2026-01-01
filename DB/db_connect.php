@@ -10,13 +10,11 @@ class Database {
       $this->connection = new PDO ("mysql:host =$this->host;dbname =$this->dbname",$this->username,$this->password);
       $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
     }
-    public function getInstance():Database{
-        if (!isset($instance)) {
-            throw new Exception("The config is not running well :/");
-        }
-        else {
+    public static function getInstance():Database{
+        if (!isset(self::$instance)) {
             self::$instance = new Database();
         }
+        
         return self::$instance;
         
     }
