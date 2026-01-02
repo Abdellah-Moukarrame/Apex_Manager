@@ -64,17 +64,21 @@ $resultat = $teams->getAll();
 
                     <!-- Actions -->
                     <div class="flex gap-3">
-                        <button class="flex-1 py-2 rounded-lg bg-slate-800 
-                                   hover:bg-emerald-600 hover:text-white 
-                                   transition font-medium">
+                        <a href="#"
+                            class="flex-1 py-2 text-center rounded-lg bg-slate-800 
+              hover:bg-emerald-600 hover:text-white 
+              transition font-medium">
                             View
-                        </button>
-                        <button class="flex-1 py-2 rounded-lg bg-slate-800 
-                                   hover:bg-blue-600 hover:text-white 
-                                   transition font-medium">
+                        </a>
+
+                        <a href="update_team.php?id_equipe=<?= $team['id_E'] ?>"
+                            class="flex-1 py-2 text-center rounded-lg bg-slate-800 
+                            hover:bg-blue-600 hover:text-white 
+                            transition font-medium">
                             Edit
-                        </button>
+                        </a>
                     </div>
+
 
 
 
