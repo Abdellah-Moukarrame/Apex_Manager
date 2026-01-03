@@ -1,7 +1,10 @@
 <?php
 
-// session_start();
-// $_SESSION["is_journaliste"] == true;
+session_start();
+if (!isset($_SESSION['role'])|| $_SESSION['role']!="journalist") {
+    header("Location: ../auth/logout.php");
+    exit;
+}
 
 
 ?>
