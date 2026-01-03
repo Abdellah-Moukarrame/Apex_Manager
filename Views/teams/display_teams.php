@@ -64,11 +64,11 @@ $resultat = $teams->getAll();
 
                     <!-- Actions -->
                     <div class="flex gap-3">
-                        <a href="#"
+                        <a href="delete_team.php?id_equipe=<?= $team['id_E'] ?>"
                             class="flex-1 py-2 text-center rounded-lg bg-slate-800 
-              hover:bg-emerald-600 hover:text-white 
+              hover:bg-red-600 hover:text-white 
               transition font-medium">
-                            View
+                            Delete
                         </a>
 
                         <a href="update_team.php?id_equipe=<?= $team['id_E'] ?>"
