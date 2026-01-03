@@ -4,18 +4,19 @@ require "../../Classes/Team.php";
 $id_equipe = $_GET['id_equipe'];
 $teams = new Team();
 $resultat = $teams->getById($id_equipe);
-if (isset($_POST)) {
-    $manager = $_POST['manager'] ?? null;
-    $budget = $_POST['budget'] ?? null;
+if (isset($_POST['btn-edit'])) {
+    $manager = $_POST['manager'];
+    $budget = $_POST['budget'];
     if ($manager == null || $budget == null) {
         echo "manager est budget sont obligatoire";
     }
+    $teams->setManager($manager);
+    $teams->setBudget($budget);
+    $teams->update($id_equipe);
+    header("location: ../dashboards/admin_dashboard.php");
+    exit;
 }
-$teams->setManager($manager);
-$teams->setBudget($budget);
-$teams->update($id_equipe);
-header("location: ../dashboards/admin_dashboard.php");
-exit;
+
 
 ?>
 <!DOCTYPE html>
