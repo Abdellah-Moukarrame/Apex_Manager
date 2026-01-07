@@ -4,12 +4,12 @@ abstract class Person
     private int $id;
     private string $name, $nationnalite;
 
-    public function __construct($id, $name, $nationnalite)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->nationnalite = $nationnalite;
-    }
+    // public function __construct($id, $name, $nationnalite)
+    // {
+    //     $this->id = $id;
+    //     $this->name = $name;
+    //     $this->nationnalite = $nationnalite;
+    // }
 
     public function getId(): int
     {

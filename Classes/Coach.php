@@ -36,21 +36,18 @@ class Coach extends Person implements Crud
         $sql_create = "insert into coach (nom_C  , style_coaching,annee_Exp) values (:name,:style,:annee_exp)";
         $data_create = $this->db->prepare($sql_create);
         $data_create->execute([":name" => $this->getName(), ":style" => $this->getStyle(), ":annee_exp" => $this->getAnne()]);
-        $coachs_create = $data_create->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function update($id_equipe)
+    public function update($id)
     {
         $sql_update = "update  coach set nom_C = :name , style_coaching = :style , annee_Exp =annee_exp where id_C = :id ";
         $data_update = $this->db->prepare($sql_update);
-        $data_update->execute([":name" => $this->getName(), ":role" => $this->getStyle(), ":pseudo" => $this->getAnne(), ":id" => $id_equipe]);
-        $coachs_update = $data_update->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_update->execute([":name" => $this->getName(), ":role" => $this->getStyle(), ":pseudo" => $this->getAnne(), ":id" => $id]);
     }
-    public function delete($id_equipe)
+    public function delete($id)
     {
         $sql_delete = "delete  from coach where id_C :id ";
         $data_delete = $this->db->prepare($sql_delete);
-        $data_delete->execute([":id" => $id_equipe]);
-        $coachs_update = $data_delete->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_delete->execute([":id" => $id]);
     }
     public function getAll()
     {
@@ -59,8 +56,11 @@ class Coach extends Person implements Crud
         $data_coachs->execute();
         $coachs = $data_coachs->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function getById($id_equipe)
+    public function getById($id)
     {
-        
+        $sql_coach =  "select * from coach where id_C =:id";
+        $data_coach = $this->db->prepare($sql_coach);
+        $data_coach->execute([':id'=>$id]);
+        $coach = $data_coach->fetchColumn($data_coach);
     }
 }

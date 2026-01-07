@@ -1,15 +1,13 @@
 <?php
+require "../../DB/db_connect.php";
 class Team implements Crud
 {
     private string $nom_E, $manager_E;
     private float $budget;
     private PDO $db;
 
-    public function __construct($nom_E, $manager_E, $budget)
+    public function __construct()
     {
-        $this->nom_E = $nom_E;
-        $this->manager_E = $manager_E;
-        $this->budget = $budget;
         $this->db = Database::getInstance()->connection_db();
     }
     public function getNom_E(): string
@@ -47,32 +45,36 @@ class Team implements Crud
     }
     public function create()
     {
-        $sql_create_team = "insert into equipe values (:nom , :budget, :manager) ";
+        $sql_create_team = "insert into equipe (nom_E, budget_E, manager_E) values (:nom , :budget, :manager) ";
         $data_create_team = $this->db->prepare($sql_create_team);
-        $data_create_team->execute([":nom" => $this->getNom_E(), ":budget" => $this->getBudget(), ":manager" => $this->getManager()]);
-        $team_create = $data_create_team->fetchAll(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_create_team->execute([":nom" => $this->getNom_E(), "budget" => $this->getBudget(), ":manager" => $this->getManager()]);
     }
     public function update($id_equipe)
     {
-        $sql_update_team = "update equipe set nom_E = :name , budget_E = :budget , manager_E = :manager where id_E = :id";
+        $sql_update_team = "update equipe set budget_E = :budget , manager_E = :manager where id_E = :id";
         $data_update_team = $this->db->prepare($sql_update_team);
-        $data_update_team->execute([":nom" => $this->getNom_E(), ":budget" => $this->getBudget(), ":manager" => $this->getManager() , ":id" =>$id_equipe]);
+        $data_update_team->execute([":budget" => $this->getBudget(), ":manager" => $this->getManager(), ":id" => $id_equipe]);
     }
-    public function delete($id_equipe) {
+    public function delete($id_equipe)
+    {
         $sql_delet_team = "delete from equipe where id_E = :id";
         $data_delete_team = $this->db->prepare($sql_delet_team);
-        $data_delete_team->execute([":id"=>$id_equipe]);
+        $data_delete_team->execute([":id" => $id_equipe]);
     }
     public function getAll()
     {
         $sql_teams = "select * from equipe ";
         $data_teams = $this->db->prepare($sql_teams);
         $data_teams->execute();
-        $teams = $data_teams->fetchAll(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
+        $teams = $data_teams->fetchAll(PDO::FETCH_ASSOC);
+        return $teams;
     }
     public function getById($id_equipe)
     {
         $sql_team_id = "select * from equipe where id_E = :id ";
-        
-    }
+        $data_team_id = $this->db->prepare($sql_team_id);
+        $data_team_id->execute([":id" => $id_equipe]);
+        $team = $data_team_id->fetchAll(PDO::FETCH_ASSOC);
+        return $team;
+    } 
 }

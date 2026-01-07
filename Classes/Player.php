@@ -1,15 +1,18 @@
 <?php
-require "../DB/db_connect.php";
+// require "../../DB/db_connect.php";
+require "Person.php";
+require "../../Interface/crud.php";
 class Player extends Person implements Crud
 {
     private string $role;
     private string $pseudo;
+    private string $email;
     private PDO $db;
-    public function __construct($id, $name, $nationnalite, $role)
+    public function __construct()
     {
-        $this->role = $role;
+        // $this->role = $role;
         $this->db = Database::getInstance()->connection_db();
-        parent::__construct($id, $name, $nationnalite);
+        // parent::__construct($id, $name, $nationnalite);
     }
     public function getrole(): string
     {
@@ -26,30 +29,42 @@ class Player extends Person implements Crud
     {
         return $this->pseudo;
     }
+    public function setPseudo($pseudo): string
+    {
+        return $this->pseudo = $pseudo;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function setEmail($email): string
+    {
+        return $this->email = $email;
+    }
     public function getAnnualCost(): float
     {
         throw new \Exception('Not implemented');
     }
     public function create()
     {
-        $sql_create = "insert into joueur(nom_J , role_J , pseudo_J) values (:name,:role,:pseudo)";
+        $sql_create = "insert into joueur(nom_J,email_J , role_J , pseudo_J) values (:name, :email,:role,:pseudo)";
         $data_create = $this->db->prepare($sql_create);
-        $data_create->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo()]);
-        $players_create = $data_create->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_create->execute([":name" => $this->getName(), ":email" => $this->getEmail(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo()]);
+        // $players_create = $data_create->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function update($id_equipe)
+    public function update($id_joueur)
     {
         $sql_update = "update  joueur set nom_J = :name , role_J = :role , pseudo_J =pseudo where id_J = :id ";
         $data_update = $this->db->prepare($sql_update);
-        $data_update->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo(), ":id" => $id_equipe]);
-        $players_update = $data_update->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_update->execute([":name" => $this->getName(), ":role" => $this->getrole(), ":pseudo" => $this->getPseudo(), ":id" => $id_joueur]);
+        // $players_update = $data_update->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function delete($id_equipe)
+    public function delete($id_joueur)
     {
         $sql_delete = "delete  from joueur where id_J :id ";
         $data_delete = $this->db->prepare($sql_delete);
-        $data_delete->execute([":id" => $id_equipe]);
-        $players_update = $data_delete->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $data_delete->execute([":id" => $id_joueur]);
+        // $players_update = $data_delete->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
     public function getAll()
     {
@@ -58,8 +73,17 @@ class Player extends Person implements Crud
         $data_players->execute();
         $players = $data_players->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
-    public function getById($id_equipe)
+    public function getById($id_joueur)
     {
-        
+        $sql_players = "select * from joueur where id_J = :id";
+        $data_players = $this->db->prepare($sql_players);
+        $data_players->execute([':id' => $id_joueur]);
+        $players = $data_players->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        if (!empty($players)) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 }
