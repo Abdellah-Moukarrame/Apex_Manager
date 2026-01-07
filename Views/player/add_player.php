@@ -13,11 +13,13 @@ if (isset($_POST['btn-create'])) {
   $player->setEmail($_POST['email_J']);
   $player->setPseudo($_POST['pseudo_J']);
   $player->create();
+  $contrat->setSalary($_POST['salaire']);
+  $contrat->setClause_rachat($_POST['clause_rachat']);
+  $contrat->setId_equipe($_POST['id_Equipe']);
+  $contrat->setDate_fin($_POST['date_fin']);
+  $contrat->create();
 }
-if (isset($_POST['btn-create'])) {
-  $contrat->setSalary($_POST['salary']);
-  // $contrat->set
-}
+
 ?>
 
 
@@ -78,9 +80,18 @@ if (isset($_POST['btn-create'])) {
         <!-- Role -->
         <div>
           <label class="text-sm text-slate-400">Role</label>
-          <input type="text" name="role_J" placeholder="Support / Sniper / Tank"
+          <select name="role_J" required
             class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
+
+            <option value="">Select Role</option>
+            <option value="sniper">Sniper</option>
+            <option value="attacker">Attacker</option>
+            <option value="defender">Defender</option>
+            <option value="helper">Helper</option>
+
+          </select>
         </div>
+
 
         <!-- Pseudo -->
         <div>
@@ -100,52 +111,52 @@ if (isset($_POST['btn-create'])) {
     </div>
 
     <!-- Contract Information -->
-<div>
-  <h2 class="text-lg font-semibold text-slate-200 mb-4">
-    Contract Information
-  </h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-    <!-- Team -->
     <div>
-      <label class="text-sm text-slate-400">Assign to Team</label>
-      <select name="id_Equipe" required
-        class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
-        <option value="">Select Team</option>
-        <?php foreach ($results as $row) { ?>
-          <option value="<?= $row['id_E'] ?>">
-            <?= $row['nom_E'] ?>
-          </option>
-        <?php } ?>
-      </select>
-    </div>
+      <h2 class="text-lg font-semibold text-slate-200 mb-4">
+        Contract Information
+      </h2>
 
-    <!-- Salary -->
-    <div>
-      <label class="text-sm text-slate-400">Salary</label>
-      <input type="number" name="salaire" required
-        placeholder="4500"
-        class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-    <!-- Buyout Clause -->
-    <div>
-      <label class="text-sm text-slate-400">Buyout Clause</label>
-      <input type="number" name="clause_rachat"
-        placeholder="10000"
-        class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
-    </div>
+        <!-- Team -->
+        <div>
+          <label class="text-sm text-slate-400">Assign to Team</label>
+          <select name="id_Equipe" required
+            class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
+            <option value="">Select Team</option>
+            <?php foreach ($results as $row) { ?>
+              <option value="<?= $row['id_E'] ?>">
+                <?= $row['nom_E'] ?>
+              </option>
+            <?php } ?>
+          </select>
+        </div>
 
-    <!-- Contract End Date -->
-    <div>
-      <label class="text-sm text-slate-400">Contract End Date</label>
-      <input type="date" name="date_fin" required
-        class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
-    </div>
+        <!-- Salary -->
+        <div>
+          <label class="text-sm text-slate-400">Salary</label>
+          <input type="number" name="salaire" required
+            placeholder="4500"
+            class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
+        </div>
 
-  </div>
-</div>
+        <!-- Buyout Clause -->
+        <div>
+          <label class="text-sm text-slate-400">Buyout Clause</label>
+          <input type="number" name="clause_rachat"
+            placeholder="10000"
+            class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <!-- Contract End Date -->
+        <div>
+          <label class="text-sm text-slate-400">Contract End Date</label>
+          <input type="date" name="date_fin" required
+            class="w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+      </div>
+    </div>
 
 
     <!-- Actions -->
