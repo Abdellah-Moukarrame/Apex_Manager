@@ -1,5 +1,5 @@
 <?php 
-final class Finale{
+final class Finaleclass{
     private float $total;
     private float $commision;
     private static float $tax;
