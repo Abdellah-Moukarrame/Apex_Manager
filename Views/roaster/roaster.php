@@ -1,5 +1,23 @@
+<?php
+
+require "../../Classes/Roaster.php";
+require "../../Classes/Team.php";
+$players = new Roaster();
+$teams = new Team();
+$rows=$teams->getAll();
+$total = $players->count();
+
+$currentpage = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$results = $players->displayBypage($currentpage);
+
+$nextpage = $currentpage + 1;
+$prevpage = $currentpage - 1;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,20 +42,21 @@
     <select
       class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:ring-2 focus:ring-emerald-500">
       <option>Select Team</option>
-      <option>Team Apex</option>
-      <option>Team Phoenix</option>
-      <option>Team Nexus</option>
+      <?php foreach ($rows as $key) { ?>
+      <option><?= $key['nom_E'] ?></option>
+        
+      <?php } ?>
     </select>
 
     <!-- Buttons -->
     <div class="flex gap-2">
       <a href="../player/add_player.php"
-         class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-sm font-medium transition">
+        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-sm font-medium transition">
         + Contract Player
       </a>
 
       <a href="../coach/add_coach.php"
-         class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium transition">
+        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium transition">
         + Contract Coach
       </a>
     </div>
@@ -56,6 +75,7 @@
           <th class="px-6 py-4 text-left uppercase text-slate-400">Salary</th>
           <th class="px-6 py-4 text-left uppercase text-slate-400">Contract End</th>
           <th class="px-6 py-4 text-center uppercase text-slate-400">Status</th>
+          <th class="px-6 py-4 text-center uppercase text-slate-400">Team</th>
           <th class="px-6 py-4 text-center uppercase text-slate-400">Actions</th>
         </tr>
       </thead>
@@ -63,43 +83,49 @@
       <tbody class="divide-y divide-slate-800">
 
         <!-- Player Contract -->
-        <tr class="hover:bg-slate-800/40 transition">
-          <td class="px-6 py-4">
-            <p class="font-medium">Ali Bennani</p>
-            <p class="text-xs text-slate-500">ali@mail.com</p>
-          </td>
 
-          <td class="px-6 py-4">
-            <span class="px-2 py-1 text-xs rounded-full bg-emerald-600/20 text-emerald-400">
-              Player
-            </span>
-          </td>
+        <?php foreach ($results as $player) { ?>
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="px-6 py-4">
+              <p class="font-medium"><?= $player['nom_J']  ?></p>
+              <p class="text-xs text-slate-500"><?= $player['email_J']  ?></p>
+            </td>
 
-          <td class="px-6 py-4 text-slate-300">Support</td>
-          <td class="px-6 py-4 text-slate-300">ALX</td>
-          <td class="px-6 py-4 font-semibold text-emerald-400">$4,500</td>
-          <td class="px-6 py-4 text-slate-300">2026-06-30</td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 text-xs rounded-full bg-emerald-600/20 text-emerald-400">
+                Player
+              </span>
+            </td>
 
-          <td class="px-6 py-4 text-center">
-            <span class="px-2 py-1 text-xs rounded-full bg-green-600/20 text-green-400">
-              Active
-            </span>
-          </td>
+            <td class="px-6 py-4 text-slate-300"><?= $player['role_J']  ?></td>
+            <td class="px-6 py-4 text-slate-300"><?= $player['pseudo_J']  ?></td>
+            <td class="px-6 py-4 font-semibold text-emerald-400"><?= $player['salaire']  ?></td>
+            <td class="px-6 py-4 text-slate-300"><?= $player['date_fin']  ?></td>
 
-          <td class="px-6 py-4 text-center space-x-2">
-            <a href="#"
-               class="px-3 py-1 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600/30">
-              Edit
-            </a>
-            <a href="#"
-               class="px-3 py-1 rounded-md bg-red-600/20 text-red-400 hover:bg-red-600/30">
-              End
-            </a>
-          </td>
-        </tr>
+            <td class="px-6 py-4 text-center">
+              <span class="px-2 py-1 text-xs rounded-full bg-green-600/20 text-green-400">
+                Active
+              </span>
+            </td>
+            <td class="px-6 py-4 text-slate-300"><?= $player['nom_E']  ?></td>
+
+
+            <td class="px-6 py-4 text-center space-x-2">
+              <a href="#"
+                class="px-3 py-1 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600/30">
+                Edit
+              </a>
+              <a href="#"
+                class="px-3 py-1 rounded-md bg-red-600/20 text-red-400 hover:bg-red-600/30">
+                End
+              </a>
+            </td>
+          </tr>
+        <?php } ?>
+
 
         <!-- Coach Contract -->
-        <tr class="hover:bg-slate-800/40 transition">
+        <!-- <tr class="hover:bg-slate-800/40 transition">
           <td class="px-6 py-4">
             <p class="font-medium">Youssef Amrani</p>
             <p class="text-xs text-slate-500">coach@mail.com</p>
@@ -124,19 +150,42 @@
 
           <td class="px-6 py-4 text-center space-x-2">
             <a href="#"
-               class="px-3 py-1 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600/30">
+              class="px-3 py-1 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600/30">
               Edit
             </a>
             <a href="#"
-               class="px-3 py-1 rounded-md bg-red-600/20 text-red-400 hover:bg-red-600/30">
+              class="px-3 py-1 rounded-md bg-red-600/20 text-red-400 hover:bg-red-600/30">
               End
             </a>
           </td>
-        </tr>
+        </tr> -->
 
       </tbody>
     </table>
   </div>
+  <!-- Pagination -->
+  <div class="max-w-7xl mx-auto mt-6 flex justify-between items-center">
+
+    <!-- Previous -->
+    <a href="?page=<?= $prevpage ?>"
+      class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition <?= $currentpage == 1 ? "pointer-events-none" : "" ?>">
+      ← Previous
+    </a>
+
+    <!-- Page info -->
+    <span class="text-sm text-slate-400">
+      Page <span class="text-slate-200 font-medium"><?= $currentpage ?></span>
+    </span>
+
+    <!-- Next -->
+    <a href="?page=<?= $nextpage ?>"
+      class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition <?= $currentpage * 4 >= $total ? "pointer-events-none" : "" ?>">
+      Next →
+    </a>
+
+  </div>
+
+
 
 </body>
 </html>
