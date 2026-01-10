@@ -47,8 +47,36 @@ class Transfert{
 
     public function playerTransfert () {
         try {
-            //check budget
             
+            $this->db->beginTransaction() ;
+            //check budget
+            $sql_check =$this->db->prepare("select budget from equipe where id_E = :id") ;
+            $sql_check->execute(['id'=>$this->id_equipe_arrivee]);
+            $budget = $sql_check->fetchColumn('budget');
+            return $budget;
+
+            
+            if ($budget < $montant) {
+                $state = "Pending";
+                return $state;
+            }else {
+                $state = "Complete";
+                return $state;
+            }
+
+            //transfert the budget from the equipe_arrivee to equipe_depart
+            $sql_check =$this->db->prepare("update equipe set budget_E = :budget from where id_E = :id") ;
+            $sql_check->execute(['budget'=>$budget,'id'=>$this->id_equipe_arrivee]);
+            //change the contract 
+            
+            $sql_check =$this->db->prepare("update id from equipe where id_E = :id") ;
+            $sql_check->execute(['id'=>$this->id_equipe_arrivee]);
+            $budget = $sql_check->fetchColumn('budget');
+            return $budget;
+
+            
+
+
         } catch (PDOException $error) {
             $this->db->rollBack() . $error->getMessage();
         }

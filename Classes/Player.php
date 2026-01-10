@@ -72,6 +72,7 @@ class Player extends Person implements Crud
         $data_players = $this->db->prepare($sql_players);
         $data_players->execute();
         $players = $data_players->fetch(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        return $players;
     }
     public function getById($id_joueur)
     {

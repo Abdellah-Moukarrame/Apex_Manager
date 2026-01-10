@@ -1,5 +1,6 @@
 <?php
-require "../../DB/db_connect.php";
+require_once "../../DB/db_connect.php";
+require_once "../../Interface/crud.php";
 class Team implements Crud
 {
     private string $nom_E, $manager_E;

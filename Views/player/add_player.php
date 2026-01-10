@@ -1,8 +1,8 @@
 <?php
 
-require "../../Classes/Player.php";
-require "../../Classes/Contrat.php";
-require "../../Classes/Team.php";
+require_once "../../Classes/Player.php";
+require_once "../../Classes/Contrat.php";
+require_once "../../Classes/Team.php";
 $teams = new Team();
 $contrat = new Contrat();
 $results = $teams->getAll();

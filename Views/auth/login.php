@@ -1,8 +1,8 @@
 <?php
-    
-    require "../../Classes/Login.php";
-    $login = new Login();
-    $login->LoginRole();
+
+require "../../Classes/Login.php";
+$login = new Login();
+$login->LoginRole();
 
 ?>
 <!DOCTYPE html>
@@ -100,8 +100,8 @@
                            bg-emerald-600 hover:bg-emerald-700
                            focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-zinc-900
                            shadow-lg shadow-emerald-900/40 transition">
-                    
-                
+
+
             </form>
 
             <!-- Divider -->
@@ -115,15 +115,15 @@
             </div>
 
             <!-- Visitor Button -->
-            <button
-                type="button"
-                class="w-full py-3 rounded-lg font-medium
-                       border border-zinc-700 text-zinc-300
-                       hover:text-white hover:border-zinc-600 hover:bg-zinc-800/40
-                       focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-900
-                       transition">
+            <a href="../user/user_interface.php"
+                class="block w-full text-center py-3 rounded-lg font-medium
+                border border-zinc-700 text-zinc-300
+                hover:text-white hover:border-zinc-600 hover:bg-zinc-800/40
+                focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-900
+                transition">
                 Continue as Visitor
-            </button>
+            </a>
+
 
             <!-- Info -->
             <p class="text-xs text-zinc-500 text-center mt-6">
