@@ -1,5 +1,6 @@
 <?php
 require_once "../../Classes/Player.php";
+require_once "../../Classes/Contrat.php";
 require_once "../../DB/db_connect.php";
 $players = new Player;
 $results = $players->getAll();
@@ -58,10 +59,10 @@ $results = $players->getAll();
           </p>
         </div>
 
-        <button
+        <a href="transfert_form.php?id_player=<?= $key['id_J']  ?>"
           class="mt-6 w-full bg-sky-600 hover:bg-sky-700 text-white py-2 rounded-xl font-semibold transition">
           Transfer Member
-        </button>
+        </a>
       </div>
     <?php }   ?>
 
